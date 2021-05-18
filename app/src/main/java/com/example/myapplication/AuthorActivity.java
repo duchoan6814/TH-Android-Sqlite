@@ -61,10 +61,20 @@ public class AuthorActivity extends AppCompatActivity {
         List<Author> authorArrayList;
         ArrayList<String> stringArrayList = new ArrayList<>();
 
-        authorArrayList = databaseHelper.getAllAuthor();
+        if (edtID.getText().equals(""))
+            authorArrayList = databaseHelper.getAllAuthor();
+        else
+            try {
+                authorArrayList = databaseHelper.getIdAuthor(Integer.parseInt(edtID.getText().toString()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                authorArrayList = databaseHelper.getAllAuthor();
+            }
 
-        for (Author i: authorArrayList) {
-            stringArrayList.add(i.getId()+"");
+        System.out.println(authorArrayList);
+
+        for (Author i : authorArrayList) {
+            stringArrayList.add(i.getId() + "");
             stringArrayList.add(i.getName());
             stringArrayList.add(i.getAddress());
             stringArrayList.add(i.getEmail());
@@ -83,7 +93,7 @@ public class AuthorActivity extends AppCompatActivity {
 
         if (databaseHelper.insertAuthor(author) > 0) {
             Toast.makeText(getApplicationContext(), "Da luu thanh cong", Toast.LENGTH_LONG).show();
-        }else {
+        } else {
             Toast.makeText(getApplicationContext(), "luu khong thanh cong", Toast.LENGTH_LONG).show();
         }
 

@@ -53,12 +53,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null){
             cursor.moveToFirst();
         }
-        while (cursor.isAfterLast()){
+        while (!cursor.isAfterLast()){
             list.add(new Author(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
             cursor.moveToNext();
         }
         cursor.close();
         db.close();
+        return list;
+    }
+
+    public ArrayList<Author> getIdAuthor(int id) {
+        ArrayList<Author> list = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("Select * from Author where id like '%"+id+"%'", null);
+        if (cursor != null)
+            cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            list.add(new Author(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        sqLiteDatabase.close();
         return list;
     }
 }
