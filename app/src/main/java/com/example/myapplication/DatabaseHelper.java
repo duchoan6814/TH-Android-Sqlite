@@ -76,4 +76,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
         return list;
     }
+
+    public boolean removeAuthorById(String Id) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        return sqLiteDatabase.delete("Author", "id like "+Id, null) > 0;
+    }
+
+    public boolean updateAuthorById(Author author) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name", author.getName());
+        cv.put("address", author.getAddress());
+        cv.put("email", author.getEmail());
+        return sqLiteDatabase.update("Author", cv, "id like "+author.getId(), null) > 0;
+    }
 }

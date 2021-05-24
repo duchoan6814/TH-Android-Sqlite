@@ -53,6 +53,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="77dp"
         android:ems="10"
+        android:hint="enter id"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,8 +64,8 @@
         android:layout_height="44dp"
         android:layout_marginStart="10dp"
         android:ems="10"
+        android:hint="enter name"
         android:inputType="textPersonName"
-        android:text="enter name"
         app:layout_constraintBottom_toBottomOf="@+id/edt_id"
         app:layout_constraintStart_toEndOf="@+id/edt_id"
         app:layout_constraintTop_toTopOf="@+id/edt_id" />
@@ -76,8 +77,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="11dp"
         android:ems="10"
+        android:hint="enter address"
         android:inputType="textPersonName"
-        android:text="enter address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_name" />
 
@@ -88,8 +89,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="enter email"
         android:inputType="textPersonName"
-        android:text="enter email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_address" />
 

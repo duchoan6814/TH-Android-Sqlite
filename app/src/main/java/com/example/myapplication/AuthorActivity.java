@@ -33,6 +33,8 @@ public class AuthorActivity extends AppCompatActivity {
 
     private DatabaseHelper databaseHelper;
 
+    private List<Author> authorArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +57,45 @@ public class AuthorActivity extends AppCompatActivity {
 
         btnSave.setOnClickListener(v -> handleBtnSave());
         btnSelect.setOnClickListener(v -> handleBtnSelect());
+        btnDelete.setOnClickListener(v -> handleBtnDelete());
+        btnUpdate.setOnClickListener(v -> handleBtnUpdate());
+    }
+
+    private void handleBtnUpdate() {
+
+        Author author = new Author();
+        author.setId(Integer.parseInt(edtID.getText().toString()));
+        author.setName(String.valueOf(edtName.getText()));
+        author.setAddress(String.valueOf(edtAddress.getText()));
+        author.setEmail(String.valueOf(edtEmail.getText()));
+        boolean state = databaseHelper.updateAuthorById(author);
+        if(state) {
+            Toast.makeText(getApplicationContext(), "Sửa thông tin author thành công.", Toast.LENGTH_LONG).show();
+            edtID.setText("");
+            handleBtnSelect();
+        }else {
+            Toast.makeText(getApplicationContext(), "Sửa thông tin author không thành công, vui lòng kiểm tra lại id", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void handleBtnDelete() {
+        if (edtID.getText().toString() == "")
+            Toast.makeText(getApplicationContext(), "Xoa khong thanh cong, vui long nhap id can xoa", Toast.LENGTH_LONG).show();
+        else {
+            boolean state = databaseHelper.removeAuthorById(edtID.getText().toString());
+            if (state) {
+                Toast.makeText(getApplicationContext(), "Xoa thanh cong", Toast.LENGTH_LONG).show();
+                edtID.setText("");
+                handleBtnSelect();
+            }else {
+                Toast.makeText(getApplicationContext(), "Xoa khong thanh cong, id khong ton tai", Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
 
     private void handleBtnSelect() {
-        List<Author> authorArrayList;
+
         ArrayList<String> stringArrayList = new ArrayList<>();
 
         if (edtID.getText().equals(""))
@@ -93,6 +130,7 @@ public class AuthorActivity extends AppCompatActivity {
 
         if (databaseHelper.insertAuthor(author) > 0) {
             Toast.makeText(getApplicationContext(), "Da luu thanh cong", Toast.LENGTH_LONG).show();
+            edtID.setText("");
         } else {
             Toast.makeText(getApplicationContext(), "luu khong thanh cong", Toast.LENGTH_LONG).show();
         }
